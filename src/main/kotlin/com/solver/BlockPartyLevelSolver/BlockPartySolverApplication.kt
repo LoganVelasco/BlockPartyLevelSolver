@@ -1,4 +1,4 @@
-package com.solver.BlockPartySolver
+package com.solver.BlockPartyLevelSolver
 
 import com.solver.levelSolver.*
 import org.springframework.boot.autoconfigure.SpringBootApplication
