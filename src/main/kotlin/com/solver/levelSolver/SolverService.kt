@@ -378,22 +378,23 @@ class SolverService {
     }
 
     fun handleWin() {
-
         var copy = visitedStates.clone() as ArrayList<ArrayList<Char>>
         copy.removeAll(badStates)
         if(copy.size != moveCount) return
         winsStates.add(copy)
 
-        println()
 //        println("-----------")
         println("SOLVED in $moveCount moves!")
-        println("PRINTING SOLUTION")
-        Thread.sleep(3000)
+        println("Looking for shorter solutions")
+        println()
 
-        for (layout in copy) {
-            Thread.sleep(500)
-            printLayout(layout)
-        }
+//        println("PRINTING SOLUTION")
+//        Thread.sleep(3000)
+//
+//        for (layout in copy) {
+//            Thread.sleep(500)
+//            printLayout(layout)
+//        }
 
         //exitProcess(0)
     }

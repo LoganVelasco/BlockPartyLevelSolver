@@ -17,8 +17,8 @@ fun solve(state: ArrayList<Char>) {
     moveCount = 0
     initialState = state
     visitedStates = arrayListOf(initialState)
-    winsStates = ArrayList<ArrayList<ArrayList<Char>>>()
-    badStates = ArrayList<ArrayList<Char>>()
+    winsStates = ArrayList()
+    badStates = ArrayList()
 
     val staringPoint = solverService.findBlueBlock(initialState)
     print("Solving")
@@ -26,10 +26,10 @@ fun solve(state: ArrayList<Char>) {
     Thread.sleep(500)
 
     getNextMove(staringPoint)
-//    if (winsStates.isNullOrEmpty())
-//        printFailedToFindSolution()
-//    else
-//        printShortestPath()
+    if (winsStates.isNullOrEmpty())
+        solverService.printFailedToFindSolution()
+    else
+        solverService.printShortestPath()
     println("----------------")
     Thread.sleep(5000)
 }
@@ -39,6 +39,10 @@ fun getNextMove(position: Int):Boolean {
 
     var currentState = visitedStates.last()
     var possibleMoves = solverService.getPossibleMoves(position)
+    if(isCountHigherThenSolution()){
+        solverService.handleDeadEnd(currentState)
+        return false
+    }
     for (moves in possibleMoves) {
         when (moves) {
             'u' -> {
@@ -68,6 +72,11 @@ fun getNextMove(position: Int):Boolean {
     return false
 }
 
+fun isCountHigherThenSolution(): Boolean {
+    if(winsStates.isNullOrEmpty())return false
+    return moveCount  >= winsStates.last().size
+}
+
 private fun makeMove(
         currentState: java.util.ArrayList<Char>,
         position: Int,
@@ -75,7 +84,7 @@ private fun makeMove(
 ): Boolean {
     if (newPosition == solverService.findEndingPoint()) {
         solverService.handleWin()
-        return true
+        return false
     }
     val newLayout = getUpdatedLayout(currentState, position, newPosition)
     if (newLayout != null) {
