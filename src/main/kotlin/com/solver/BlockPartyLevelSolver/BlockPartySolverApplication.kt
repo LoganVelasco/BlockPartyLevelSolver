@@ -1,6 +1,7 @@
 package com.solver.BlockPartyLevelSolver
 
 import com.solver.levelSolver.*
+import com.solver.levelSolver.solve
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
@@ -14,5 +15,5 @@ fun main(args: Array<String>) {
     solve(level7)
     solve(level8)
     solve(level9)
-//    solve(level10)
+    solve(level10)
 }

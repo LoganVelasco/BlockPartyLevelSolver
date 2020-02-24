@@ -31,7 +31,7 @@ fun solve(state: ArrayList<Char>) {
     else
         solverService.printShortestPath()
     println("----------------")
-    Thread.sleep(5000)
+//    Thread.sleep(5000)
 }
 
 
@@ -88,9 +88,18 @@ private fun makeMove(
     }
     val newLayout = getUpdatedLayout(currentState, position, newPosition)
     if (newLayout != null) {
+//        println()
+//      solverService.printLayout(newLayout)
+//    println("Count: $moveCount")
+//    println("-----------------------")
+//    println()
+
         newLayout[48] = moveCount.toChar()
         visitedStates.add(newLayout)
 //        println("Count: ${visitedStates.size} Move Count: $moveCount")
+        if(visitedStates.size == 14){
+            val imUsless = 0
+        }
         return getNextMove(newPosition)
     }
     return false
@@ -104,12 +113,7 @@ private fun getUpdatedLayout(currentState: ArrayList<Char>, position: Int, newPo
         newLayout[position] = '.'
         newLayout[newPosition] = 'b'
     }
-//    println()
-//    print("-----------------------")
-//    solverService.printLayout(newLayout)
-//    println("Count: $moveCount")
-//    println("-----------------------")
-//    println()
+
     return if (solverService.moveRed(newLayout) || solverService.moveRed(newLayout)) {
         null
     } else if (solverService.isAlreadyVisitedState(newLayout)) {

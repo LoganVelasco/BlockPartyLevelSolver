@@ -231,11 +231,22 @@ class SolverService {
             oldState[48] = 0.toChar()
             state[48] = 0.toChar()
             val isStateSame = oldState == state
+
+            if (isStateSame ){  // TODO Make more efficient for lots of winsStates
+                if(!winsStates.isNullOrEmpty() && winsStates.last().contains(state)){
+                    if(oldCount <= newCount ) {
+                        oldState[48] = oldCount.toChar()
+                        state[48] = newCount.toChar()
+                        return true
+                    }
+                }else {
+                    oldState[48] = oldCount.toChar()
+                    state[48] = newCount.toChar()
+                    return true
+                }
+            }
             oldState[48] = oldCount.toChar()
             state[48] = newCount.toChar()
-            if (isStateSame && (oldCount <= newCount)){
-                return true
-            }
         }
         return false
     }
@@ -373,7 +384,7 @@ class SolverService {
 //        println("ADDING STATE TO DEAD END STATES")
 
 //        println("RETURNING TO:")
-//        printLayout(visitedStates[visitedStates.size - 2])
+//        printLayout(visitedStates[visitedStates.size - 3])
 //        println("-----------")
     }
 
@@ -408,11 +419,11 @@ class SolverService {
     fun printShortestPath() {
         println()
         println("SHORTEST PATH IS ${winsStates[winsStates.size-1].size} MOVES")
-        Thread.sleep(1500)
+//        Thread.sleep(1500)
 
         for (layout in winsStates[winsStates.size-1]) {
             printLayout(layout)
-            Thread.sleep(1000)
+//            Thread.sleep(1000)
         }
         println("-----------")
         println("SOLVED in ${winsStates[winsStates.size-1].size}!")
